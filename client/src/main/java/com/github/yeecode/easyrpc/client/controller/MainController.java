@@ -16,24 +16,31 @@ public class MainController {
 
     @RequestMapping("/getUserCount")
     public String getUserCount() {
+        System.out.println("songenjie getUserCount");
         Integer userCount = userService.getUserCount();
+        System.out.println("songenjie "+ userCount.toString());
         return userCount.toString();
     }
 
     @RequestMapping("/getUserInfo")
     public String getUserInfo() {
+        System.out.println("songenjie getUserInfo");
         String userInfo = userService.getUserInfo(1);
+        System.out.println("songenjie "+ userInfo.toString());
         return userInfo;
     }
 
     @RequestMapping("/addUser")
     public String addUser() {
+        System.out.println("songenjie addUser");
         Integer userId = userService.addUser("name", "abc@gmail.com", 16, 0, "Garden School");
+        System.out.println("songenjie "+ userId.toString());
         return userId.toString();
     }
 
     @RequestMapping("/querySchoolName")
     public String querySchoolName() {
+        System.out.println("songenjie querySchoolName");
         return schoolService.querySchoolName(5);
     }
 }

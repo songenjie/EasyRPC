@@ -18,6 +18,8 @@ public class HttpUtil {
 
     public static synchronized Result callRemoteService(String identifier, String methodName, String argTypes, String argValues) {
         try {
+            System.out.println("identifier: " + identifier + "\nmethod: " + methodName + "\nargTypes: " + argTypes + "\nargValues: " + argValues);
+
             List<NameValuePair> paramsList = new ArrayList<NameValuePair>();
             paramsList.add(new BasicNameValuePair("identifier", identifier));
             paramsList.add(new BasicNameValuePair("methodName", methodName));
@@ -25,6 +27,8 @@ public class HttpUtil {
             paramsList.add(new BasicNameValuePair("argValues", argValues));
             String result = sendPost("http://127.0.0.1:12311/", paramsList);
             return JSON.parseObject(result, Result.class);
+
+
         } catch (Exception ex) {
             return Result.getFailResult("触发远程调用失败");
         }
@@ -32,7 +36,7 @@ public class HttpUtil {
 
     private static synchronized String sendPost(String url, List<NameValuePair> nameValuePairList) throws Exception {
         CloseableHttpResponse response = null;
-        try  {
+        try {
             CloseableHttpClient client = HttpClients.createDefault();
             HttpPost post = new HttpPost(url);
             StringEntity entity = new UrlEncodedFormEntity(nameValuePairList, "UTF-8");

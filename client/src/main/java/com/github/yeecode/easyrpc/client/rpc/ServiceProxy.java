@@ -19,6 +19,9 @@ public class ServiceProxy<T> implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         RemoteClass remoteClass = method.getDeclaringClass().getAnnotation(RemoteClass.class);
+
+        System.out.println("remote class :" + remoteClass.toString());
+
         if (remoteClass == null) {
             throw new Exception("远程类标志未指定");
         }
@@ -26,12 +29,16 @@ public class ServiceProxy<T> implements InvocationHandler {
         List<String> argTypeList = new ArrayList<String>();
         if (args != null) {
             for (Object obj : args) {
+                System.out.println("obj  :" + obj.toString());
                 argTypeList.add(obj.getClass().getName());
             }
         }
 
         String argTypes = JSON.toJSONString(argTypeList);
         String argValues = JSON.toJSONString(args);
+
+        System.out.println("argTypes  :" + argTypes);
+        System.out.println("argValues :" + argValues);
 
         Result result = HttpUtil.callRemoteService(remoteClass.value(), method.getName(), argTypes, argValues);
 
