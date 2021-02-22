@@ -18,7 +18,7 @@ public class HttpUtil {
 
     public static synchronized Result callRemoteService(String identifier, String methodName, String argTypes, String argValues) {
         try {
-            List<NameValuePair> paramsList = new ArrayList<>();
+            List<NameValuePair> paramsList = new ArrayList<NameValuePair>();
             paramsList.add(new BasicNameValuePair("identifier", identifier));
             paramsList.add(new BasicNameValuePair("methodName", methodName));
             paramsList.add(new BasicNameValuePair("argTypes", argTypes));
@@ -32,7 +32,8 @@ public class HttpUtil {
 
     private static synchronized String sendPost(String url, List<NameValuePair> nameValuePairList) throws Exception {
         CloseableHttpResponse response = null;
-        try (CloseableHttpClient client = HttpClients.createDefault()) {
+        try  {
+            CloseableHttpClient client = HttpClients.createDefault();
             HttpPost post = new HttpPost(url);
             StringEntity entity = new UrlEncodedFormEntity(nameValuePairList, "UTF-8");
             post.setEntity(entity);

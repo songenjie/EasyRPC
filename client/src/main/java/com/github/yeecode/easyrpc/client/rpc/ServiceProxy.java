@@ -23,7 +23,7 @@ public class ServiceProxy<T> implements InvocationHandler {
             throw new Exception("远程类标志未指定");
         }
 
-        List<String> argTypeList = new ArrayList<>();
+        List<String> argTypeList = new ArrayList<String>();
         if (args != null) {
             for (Object obj : args) {
                 argTypeList.add(obj.getClass().getName());
